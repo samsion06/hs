@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+    <test name="用户收货地址">
+        <classes>
+            <class name="com.example.Userbase.UserbaseTest"/>
+        </classes>
+    </test>
+    <!--testng执行方式：https://www.cnblogs.com/926xiuxiu/p/9055846.html-->
+    <!--testng传递参数方式：https://blog.csdn.net/xueningyang555/article/details/88871426-->
+    <listeners>
+        <listener class-name="com.example.report.ExtentTestNGReporterListener"></listener>
+    </listeners>
+</suite>
