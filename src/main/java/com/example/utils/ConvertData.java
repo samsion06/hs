@@ -59,7 +59,7 @@ public class ConvertData {
     //获取用户信息
     public static ByteArrayEntity UserInfoUnionIdOpenIdRequestConvertBuilder(Integer channelId, String unionId, String openId){
         UserBaseServiceProto.UserInfoUnionIdOpenIdRequest.Builder builder= UserBaseServiceProto.UserInfoUnionIdOpenIdRequest.newBuilder();
-        builder.setChannelId(1);
+        builder.setChannelId(channelId);
         builder.setOpenId(openId);
         builder.setUnionId(unionId);
         System.out.println(builder);

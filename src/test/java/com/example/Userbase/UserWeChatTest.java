@@ -14,6 +14,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
 
 import java.io.IOException;
 import java.net.URI;
@@ -92,6 +93,7 @@ public class UserWeChatTest extends AbstractTestNGSpringContextTests {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         ByteArrayEntity byteArrayEntity = null;
         try {
+
             //用户登录
             URI uri = new URI(HttpConfig.scheme, null, HttpConfig.url, HttpConfig.port, "/base/user/info/pd/get/by/unionId/openId", "", null);
             HttpPost post = new HttpPost(uri);
@@ -102,6 +104,7 @@ public class UserWeChatTest extends AbstractTestNGSpringContextTests {
             post.setHeader("Content-Type", "application/x-protobuf");
             //发送请求
             HttpResponse response = httpClient.execute(post);
+            Assert.assertEquals(5,1+9);
             //检查返回状态
             CheckReponseResult.checkResponseCodeAndObj(response, UserBaseServiceProto.userInfoPdCombine.class);
         } catch (Exception e) {
