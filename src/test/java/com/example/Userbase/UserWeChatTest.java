@@ -30,13 +30,15 @@ public class UserWeChatTest extends AbstractTestNGSpringContextTests {
     private static String ChannelUserId="3692091";
     private static String openId="oBrt31Sg6EqD9DJxB0Mz9EOl-Pp5";
 
+    static CloseableHttpClient httpClient;
+    static ByteArrayEntity byteArrayEntity;
+    static URI uri;
+    static HttpPost post;
+    static HttpResponse response;
+
 //    @org.testng.annotations.Test(description = "1.微信绑定" +
-//            "                              2.微信解绑 OK")
+//            "                                   2.微信解绑 OK")
     public void test2(){
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        ByteArrayEntity byteArrayEntity=null;
-        URI uri=null;
-        HttpPost post=null;
         try {
             //微信绑定
             uri = new URI(HttpConfig.scheme, null, HttpConfig.url, HttpConfig.port, "/weChat/binding", "", null);
@@ -88,25 +90,22 @@ public class UserWeChatTest extends AbstractTestNGSpringContextTests {
         }
     }
 
-    @org.testng.annotations.Test(description = "根据微信unionId或OpenId获取用户信息OK")
+    //根据微信ID和OPENID获取用户信息
+    @org.testng.annotations.Test(timeOut = 50000)
     public void test3() {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        ByteArrayEntity byteArrayEntity = null;
+          System.out.println(userBaseInfoMapper.queryUserBaseInfo());
+         // uri = new URI(HttpConfig.scheme, null, HttpConfig.url, HttpConfig.port, "/base/user/info/pd/get/by/unionId/openId", "", null);
+         //uri = new URI(HttpConfig.scheme, HttpConfig.url, "/base/user/info/pd/get/by/unionId/openId","");
         try {
-
-            //用户登录
-            URI uri = new URI(HttpConfig.scheme, null, HttpConfig.url, HttpConfig.port, "/base/user/info/pd/get/by/unionId/openId", "", null);
-            HttpPost post = new HttpPost(uri);
-            //传参转换程protobuf格式
+            httpClient=HttpClients.createDefault();
+            uri = new URI(HttpConfig.scheme, HttpConfig.url, "/base/user/info/pd/get/by/unionId/openId","");
+            System.out.println(uri);
+            post = new HttpPost(uri);;
             byteArrayEntity = ConvertData.UserInfoUnionIdOpenIdRequestConvertBuilder(1, "ox-FY1f0_ub3FnM_v9n7ITb1q-f0", "oBrt31Sg6EqD9DJxB0Mz9EOl-Pp4");
-            //设置请求体和请求参数
             post.setEntity(byteArrayEntity);
             post.setHeader("Content-Type", "application/x-protobuf");
-            //发送请求
-            HttpResponse response = httpClient.execute(post);
-            Assert.assertEquals(5,1+9);
-            //检查返回状态
-            CheckReponseResult.checkResponseCodeAndObj(response, UserBaseServiceProto.userInfoPdCombine.class);
+            response = httpClient.execute(post);
+            CheckReponseResult.AssertResponse(response, UserBaseServiceProto.userInfoPdCombine.class);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -76,7 +76,7 @@ public class UserAddressTest {
     public void test2(){
         try{
             httpClient = HttpClients.createDefault();
-            uri = new URI(HttpConfig.scheme, null, HttpConfig.url, HttpConfig.port, "/address/query", "", null);
+            uri = new URI(HttpConfig.scheme, HttpConfig.url, "/address/query", null);
             post = new HttpPost(uri);
             byteArrayEntity = ConvertData.UserAddressPageRequest("17702015334",channelId,1,1);
             post.setEntity(byteArrayEntity);
