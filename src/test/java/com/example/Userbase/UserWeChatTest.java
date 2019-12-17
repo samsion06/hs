@@ -93,7 +93,7 @@ public class UserWeChatTest extends AbstractTestNGSpringContextTests {
     //根据微信ID和OPENID获取用户信息
     @org.testng.annotations.Test(timeOut = 50000)
     public void test3() {
-          System.out.println(userBaseInfoMapper.queryUserBaseInfo());
+          //System.out.println(userBaseInfoMapper.queryUserBaseInfo());
          // uri = new URI(HttpConfig.scheme, null, HttpConfig.url, HttpConfig.port, "/base/user/info/pd/get/by/unionId/openId", "", null);
          //uri = new URI(HttpConfig.scheme, HttpConfig.url, "/base/user/info/pd/get/by/unionId/openId","");
         try {
